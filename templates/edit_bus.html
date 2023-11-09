@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Bus</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- Include other necessary CSS and scripts if needed -->
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <p class="logo">KSRTC <span class="menu">☰</span></p>
+        <p class="logo1"> <span class="menu1">☰</span></p>
+        <!-- Add navigation links similar to your dashboard -->
+    </div>
+    <div id="main">
+        <div class="head">
+            <div class="col-div-6">
+                <p class="nav">Edit Bus</p>
+            </div>
+            <div class="col-div-6">
+                <!-- Add profile, search, and notification icons similar to your dashboard -->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- Create a form for editing bus details -->
+        <form method="post" action="#">
+            {% csrf_token %}
+            <!-- You might want to populate the form fields with existing bus data -->
+            <label for="registration_number">Registration Number:</label>
+            <input type="text" id="registration_number" name="registration_number" required value="{{ bus.registration_number }}"><br><br>
+
+            <label for="bus_number">Bus Number:</label>
+            <input type="text" id="bus_number" name="bus_number" required value="{{ bus.bus_number }}"><br><br>
+
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" required value="{{ bus.status }}"><br><br>
+
+<!-- Other form fields above... -->
+
+<label for="terminal_id">Select Terminal:</label>
+<select id="terminal_id" name="terminal_id">
+    <option value="">Select Terminal</option>
+    {% for terminal in terminals %}
+        <option value="{{ terminal.terminal_id }}" {% if terminal.terminal_id == bus.terminal.terminal_id %} selected {% endif %}>
+            {{ terminal.terminal_name }}
+        </option>
+    {% endfor %}
+</select><br><br>
+
+<input type="submit" value="Update Bus">
+</form>
+
+<!-- Display error messages if needed -->
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+</div>
+</body>
+</html>
+

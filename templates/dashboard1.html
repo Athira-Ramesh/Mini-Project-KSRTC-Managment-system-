@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard UI</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+:root{
+  --darkblue:#291623;
+  --lightblue:#33202c;
+  --blue:linear-gradient(to right bottom, #faad72, #f89456);
+  --nbox:#3b2631;
+  --black:#291623;
+  --font-color:#927685;
+  --font-light:#cbcbe2;
+  --white:#fff;
+  --shadow:0 0 0.375rem 0.25rem rgb(0 0 0 / 15%);
+}
+*{margin: 0px; padding: 0px; font-family: 'Montserrat', sans-serif;}
+.clearfix{clear: both;}
+body{background: var(--black); height: 100vh; overflow: hidden;}
+.sidebar{
+  width: 220px; background: var(--darkblue); padding: 25px;
+  height: 100%; position: relative; transition: 1s ease-in-out; float: left;
+  box-shadow: var(--shadow);
+}
+.main{max-width: 100%; width: 80.4%; float: left; padding: 25px 0px 0px 30px;
+background: #291623;}
+.logo{
+  color: var(--blue);
+  font-weight: bolder;
+  font-size: 50px;
+  font-family: arial;
+  background: var(--blue);
+  padding: 15px 25px;
+  width: 44px;
+  border-radius: 20px;
+  margin: 50px auto;
+}
+.menu-icon{
+  background: var(--blue);
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  line-height: 26px!important;
+  color:white;
+  border-radius: 20px;
+  font-size: 12px!important;
+  position: absolute;
+  top: 20px;
+  right: -18px;
+  border: 5px solid #21141d;
+}
+.sidenav{margin-top: 20px;}
+.sidenav li{list-style: none; padding: 12px 10px; border-radius: 10px; margin-bottom: 25px;
+font-size: 14px;}
+.app{
+  margin: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #767685;
+  font-size: 11px;
+  position: relative;
+}
+.app:after{
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 1px;
+  background: var(--font-color);
+  left: -50px;
+  top: 17px;
+}
+.sidenav li:hover{background-color: rgba(124, 125, 182, .06);}
+.sidenav li i{color: var(--font-color); padding-right: 7px;}
+.sidenav li a{text-decoration: none; color: var(--font-color)}
+.active{background: var(--blue)!important; position: relative;}
+.sidenav li span{float: right;}
+.sidenav .active a{color: var(--white)!important;}
+.sidenav .active i{color: var(--white)!important;}
+.active:after{
+  content: "";
+  position: absolute;
+  right: -24px;
+  width: 0.25rem;
+  height: 2.5rem;
+  top: 2px;
+  background: var(--blue);
+  border-radius: 0.375rem 0 0 0.375rem;
+}
+.dropdown{display: none;}
+.dropdown li{padding: 12px 10px;}
+.dropdown li a{padding-left: 20px;
+}
+.dot{
+  height: 7px;
+  width: 7px;
+  border-radius: 10px;
+  background: var(--font-color);
+  float: left!important;
+  margin-top: 5px;
+}
+.active1{width: 40px; transition: 1s ease-in-out;}
+.menuicon{transform: rotateZ(-180deg); transition: 1s ease-in-out;}
+.lislide{padding: 8px 11px!important; font-size: 20px!important;}
+.lm{text-align: center;font-size: 30px; padding: 4px 3px; border-radius: 0px;}
+.anchor{display: none;}
+.headspan{display: none;}
+.apphide{color: transparent; padding: 0px;}
+.apphide:after{left: -5px;}
+.main-top{width: 100%; background: var(--lightblue);
+box-shadow: var(--shadow); padding: 15px 25px; box-sizing: border-box;border-radius: 10px;}
+.main-width{width: 89.5%; transition: 1s ease-in-out;}
+.input{
+  padding: 9px; outline:none; background: transparent;border: none;
+  color: var(--white); background: url(../image/search.png);
+  background-size: 20px; background-repeat: no-repeat; padding-left: 40px;
+  background-position: center left; float: left;
+}
+.box-1{
+  width: 100%;
+  height: 280px;
+  background-color: var(--lightblue);
+  margin-top: 20px;
+}
+.box-2{
+  width: 17%;
+  background-color: #3f2532;
+  float: right;
+  margin: 42px 12px;
+}
+.middle-box{width: 70%; float: left;}
+.sidebox{width: 30%; float: left;}
+.head{color: var(--blue); padding-left: 55px; color: white; font-size: 12px;}
+.content p:nth-child(3){color: var(--font-color); font-size: 12px; line-height: 22px;}
+.btn{
+  padding: 6px 12px;
+  margin-top: 18px;
+  font-size: 12px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+}
+.table-box{
+  width: 98.6%;
+  box-shadow: var(--shadow);
+  background: var(--lightblue);
+  margin-top: 30px;
+  border-radius: 10px;
+  float: left;
+  font-size: 9px;
+  padding: 22px 0px 0px 11px;
+}
+.right-sidebar{
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  float:left;
+  padding: 25px;
+}
+.p-1{font-weight: bold; color: white;}
+.nub-sec .fa{
+  color: #eb9e68!important;
+  float: right!important;
+  margin-top: -22px!important;
+}
+.p-1 span{
+  margin-left: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  background: var(--blue);
+  color: white;
+  padding: 7px 15px;
+}
+.nub-sec{
+  padding: 15px 10px;
+  margin-top: 10px;
+  background: #4e3944;
+}
+.p2{
+  background: #d1f5e9;
+  padding: 5px 14px;
+  border-radius: 42px;
+  font-size: 20px;
+  color: #77cbc2;
+  font-weight: 800;
+  padding-bottom: 9px;
+  width: 12px;
+  float: left;
+}
+.t-sale{
+  width: 94%;
+  float: left;
+  height: 900px;
+  box-shadow: var(--shadow);
+  background: var(--lightblue);
+  margin-top: -25px;
+  margin-left: 25px;
+}
+.content{padding: 20px 20px; text-align: center;}
+.content p{font-size: 13px; margin-top: 13px; color: wheat;}
+.content span{font-size: 30px!important; color: wheat; font-weight: bold;}
+.icons{
+  font-size: 39px!important;
+  padding-top: 21px;
+  background: var(--blue);
+  padding: 25px 30px;
+  color: var(--darkblue);
+  border-radius: 10px;
+}
+.head-1{
+  font-size: 18px!important;
+  margin:20px 15px;
+  color: var(--font-color);
+  text-align: center;
+}
+	
+	
+	</style>
+</head>
+<body>
+
+<div class="sidebar">
+	<h1 class="logo">K</h1>
+	<i class="fa fa-chevron-left menu-icon"></i>
+	<ul class="sidenav">
+		<li class="active"><i class="fa fa-home"></i><a href="#">Register Terminals
+			<span class="span1"><i class="fa fa-angle-right"></i></span>
+		</a>
+	</li>
+
+	<ul class="dropdown">
+		<li><a href="#"><span class="dot"></span> Analytics</a></li>
+		<li><a href="#"><span class="dot"></span> CRM</a></li>
+		<li><a href="#"><span class="dot"></span> eCommerce</a></li>
+	</ul>
+
+	<li><i class="fa fa-file"></i><a href="#">Logout</a></li>
+	<p class="app">App Ans Pages</p>
+	<!--<li><i class="fa fa-calendar"></i><a href="#">Register Terminals</a></li>-->
+	<li><i class="fa fa-clone"></i><a href="#">view Registered Staffs </a></li>
+	<li><i class="fa fa-user"></i><a href="#">View Bus Details</a></li>
+	<li><i class="fa fa-shield"></i><a href="#">View Complaint</a></li>
+	<li><i class="fa fa-file-text"></i><a href="#">View Daily Report</a></li>
+	<li><i class="fa fa-lock"></i><a href="#">Logout</a></li>
+	<!--<li><i class="fa fa-square-o"></i><a href="#">Modal Examples</a></li>-->
+
+	</ul>
+</div>
+
+<div class="main">
+	<div class="middle-box">
+		<div class="main-top">
+			<input type="text" class="input" placeholder="Search">
+			<div class="clearfix"></div>
+		</div>
+		<h1><b>WELOCME</b></h1>
+
+		<!--<div class="box-1">
+			<div class="box-2">
+				<div class="content">
+					<i class="fa fa-user icons"></i>
+					<p>Team Members</p>
+					<span>33</span>
+				</div>
+			</div>
+
+			<div class="box-2">
+				<div class="content">
+					<i class="fa fa-bar-chart icons"></i>
+					<p>Team Velocity</p>
+					<span>23</span>
+				</div>
+			</div>
+
+			<div class="box-2">
+				<div class="content">
+					<i class="fa fa-search icons"></i>
+					<p>Delivered</p>
+					<span>13</span>
+				</div>
+			</div>
+
+			<div class="box-2">
+				<div class="content">
+					<i class="fa fa-briefcase icons"></i>
+					<p>Task Delivered</p>
+					<span>33</span>
+				</div>
+			</div>
+
+			<div class="box-2">
+				<div class="content">
+					<i class="fa fa-newspaper-o icons"></i>
+					<p>New Events</p>
+					<span>12</span>
+				</div>
+			</div>
+		</div>-->
+
+		<div class="table-box">
+			<svg id="line" width="96%" class="chart-svg"></svg>
+			<h1><b>WELOCME</b></h1>
+		</div>
+	</div>
+
+	<div class="sidebox">
+	<div class="t-sale">
+		<div class="content-box-1">
+			<br/>
+			<p class="head-1">Total Users</p>
+			<div class="right-sidebar">
+				<p class="p-1">Epics <span style="float: right;">SEE ALL</span></p>
+				<br/>
+
+				<!--<div class="nub-sec">
+					<p class="p2">o</p><p class="head">Mobile Onboarding<br/><span></span>Design</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>-->
+
+
+				<div class="nub-sec">
+					<p class="p2" style="background: #f5d1d1; color: #957272;">A</p><p class="head">Admin<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+				<div class="nub-sec">
+					<p class="p2" style="background: #ffedcb; color: #927b40;">S</p><p class="head">Staffs<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+
+				<div class="nub-sec">
+					<p class="p2">W</p><p class="head">Workshop<br/><span></span>Design</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+
+				<div class="nub-sec">
+					<p class="p2" style="background: #f5d1d1; color: #957272;">P</p><p class="head">Public<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+				<!--<div class="nub-sec">
+					<p class="p2" style="background: #ffedcb; color: #927b40;">p</p><p class="head">Admin Panel<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+				<div class="nub-sec">
+					<p class="p2">o</p><p class="head">Mobile Onboarding<br/><span></span>Design</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+
+				<div class="nub-sec">
+					<p class="p2" style="background: #f5d1d1; color: #957272;">k</p><p class="head">Admin Item<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>
+
+				<div class="nub-sec">
+					<p class="p2" style="background: #ffedcb; color: #927b40;">p</p><p class="head">Admin Panel<br/><span></span>Development</span></p>
+					<i class="fa fa-ellipsis-h dots"></i>
+				</div>-->
+
+				<div style="text-align: center;">
+					<button class="btn">Load More</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/chart.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".span1").click(function(){
+			$(".dropdown").slideToggle(500);
+		});
+	});
+	$('.sidenav li').click(function(){
+		$('.sidenav li').removeClass("active");
+		$(this).addClass("active");
+	})
+</script>
+
+<script type="text/javascript">
+	$(".menu-icon").click(function(e) {
+        e.preventDefault();
+        $(".menu-icon").toggleClass("menuicon");
+        $(".main").toggleClass("main-width");
+        $(".sidebar").toggleClass("active1");
+        $(".sidenav li a").toggleClass("anchor");
+        $(".sidenav li").toggleClass("lislide");
+        $(".sidenav p").toggleClass("apphide");
+        $(".logo span").toggleClass("headspan");
+        $(".logo").toggleClass("lm");
+
+});
+
+
+</script>
+
+</body>
+</html>
