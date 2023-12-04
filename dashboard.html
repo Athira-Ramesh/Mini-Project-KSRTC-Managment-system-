@@ -291,21 +291,17 @@ table th {
 			<li><a href="{% url 'daily_collection_sent' user_id=request.user.id %}"><i class="fa fa-pie-chart"></i> daily collection</a></li>
 			<li><a href="{% url 'daily_collection_view' user_id=request.user.id %}"><i class="fa fa-cube"></i>daily collection view </a></li>
       <li><a href="{% url 'complaint' user_id=request.user.id %}"><i class="fa fa-cube"></i>complaint </a></li>
-            <li><a href="{% url 'user_complaints' user_id=request.user.id %}"><i class="fa fa-cube"></i>view complaint </a></li>
-			
-      <li><a>   {% if user.is_authenticated %}
+            
+			{% if user.is_authenticated %}
     <a href="logout" class="btn btn-primary ml-lg-3">Logout</a>
     {% else %}
     <a href="login.html" class="btn btn-primary ml-lg-3">Logout</a>
-    {% endif %}</a></li>
+    {% endif %}</a></a> 
 
 		</ul>
 
-			<ul class="social">
-				<li><a href="#">Facebook</a></li>
-				<li><a href="#">Twitter</a></li>
-				<li><a href="#">Google</a></li>
-			</ul>
+			
+		
 		
 
 	</div>
@@ -313,8 +309,7 @@ table th {
 		
 		<div class="head-section">
 			<div class="col-6">
-				<h2>Order</h2>
-				<p>30 orders found</p>
+				
 			</div>
 
 			<div class="col-6" style="text-align: right;">
