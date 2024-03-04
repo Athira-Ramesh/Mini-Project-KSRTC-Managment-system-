@@ -494,12 +494,15 @@ tr:nth-child(even) {
 	<p class="logo">KSRTC <span class="menu">☰</span></p>
 	<p class="logo1"> <span class="menu1">☰</span></p>
   <a href="{% url 'terminal_add' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>terminal add</a>
+  <a href="{% url 'workshopadd' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>workshop Register</a>
+  <a href="{% url 'view_workshop' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>view workshop</a>
   <a href="{% url 'bus' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>register buses</a>
   <a href="{% url 'bus_view' %}"class="icon-a"><i class="fa fa-pie-chart icons"></i> view registered bus</a>
   <a href="{% url 'route' %}"class="icon-a"><i class="fa fa-list icons"></i>bus route allocation</a>
   <a href="{% url 'route_view' %}"class="icon-a"><i class="fa fa-user icons"></i>view route allocation buses</a>
   <a href="{% url 'staff_term' %}"class="icon-a"><i class="fa fa-user icons"></i>Staff allocation to terminal</a>
-  <a href=""class="icon-a"><i class="fa fa-user icons"></i>view staff terminal allocation</a> {% if user.is_authenticated %}
+  <a href="{% url 'allocate_bus' %}"class="icon-a"><i class="fa fa-user icons"></i>bus allocate to terminal</a>
+  <a href="{% url 'allocate_terminal_staff' %}"class="icon-a"><i class="fa fa-user icons"></i> View Staff allocation to terminal</a> {% if user.is_authenticated %}
     <a href="logout" class="btn btn-primary ml-lg-3">Logout</a>
     {% else %}
     <a href="login.html" class="btn btn-primary ml-lg-3">Logout</a>
@@ -636,32 +639,101 @@ tr:nth-child(even) {
 	</div>-->
 	
 	    <div class="container">
-        <h1>Add Route</h1>
-        <form method="post" action="#">
-            {% csrf_token %}
-            <label for="source">Source:</label>
-            <input type="text" name="source" id="source" required>
+    <h1>Add Route</h1>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <label for="source">Source:</label>
+        <input type="text" name="source" id="source" required>
+        <div id="source_error" style="color: red;"></div>
 
-            <label for="source_time">Source Time:</label>
-            <input type="time" name="source_time" id="source_time" required>
+        <label for="source_time">Source Time:</label>
+        <input type="time" name="source_time" id="source_time" required>
 
-            <label for="destination">Destination:</label>
-<input type="text" name="destination" id="destination" required><br>
+        <label for="destination">Destination:</label>
+        <input type="text" name="destination" id="destination" required>
+        <div id="destination_error" style="color: red;"></div>
 
-            <label for="destination_time">Destination Time:</label>
-            <input type="time" name="destination_time" id="destination_time" required>
+        <label for="destination_time">Destination Time:</label>
+        <input type="time" name="destination_time" id="destination_time" required>
+        <div id="destination_time_error" style="color: red;"></div>
 
-            <label for="bus">Registered Bus:</label>
-            <select name="bus" id="bus" required>
-                {% for bus in buses %}
-                    <option value="{{ bus.bus_id }}">{{ bus.registration_number }}</option>
-                {% endfor %}
-            </select>
+        <label for="bus">Registered Bus:</label>
+        <select name="bus" id="bus" required>
+            {% for bus in buses %}
+                <option value="{{ bus.bus_id }}">{{ bus.registration_number }}</option>
+            {% endfor %}
+        </select>
 
-            <button type="submit">Add Route</button>
-        </form>
-    </div>
-	
+        <button type="submit">Add Route</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the source, destination, source time, and destination time inputs
+        var sourceInput = document.getElementById('source');
+        var destinationInput = document.getElementById('destination');
+        var sourceTimeInput = document.getElementById('source_time');
+        var destinationTimeInput = document.getElementById('destination_time');
+
+        var sourceError = document.getElementById('source_error');
+        var destinationError = document.getElementById('destination_error');
+        var destinationTimeError = document.getElementById('destination_time_error');
+
+        // Add input event listeners to the source and destination inputs
+        sourceInput.addEventListener('input', validateSource);
+        destinationInput.addEventListener('input', validateDestination);
+
+        // Add input event listeners to the source time and destination time inputs
+        sourceTimeInput.addEventListener('input', validateTime);
+        destinationTimeInput.addEventListener('input', validateTime);
+
+        function validateSource() {
+            var source = sourceInput.value;
+            var pattern = /^[A-Za-z]+$/;
+
+            if (!pattern.test(source)) {
+                sourceError.textContent = 'Invalid source. Please use only letters.';
+                sourceInput.setCustomValidity('Invalid');
+            } else {
+                sourceError.textContent = '';
+                sourceInput.setCustomValidity('');
+            }
+
+            validateDestination(); // Check if the destination is the same
+        }
+
+        function validateDestination() {
+            var destination = destinationInput.value;
+            var pattern = /^[A-Za-z]+$/;
+
+            if (!pattern.test(destination)) {
+                destinationError.textContent = 'Invalid destination. Please use only letters.';
+                destinationInput.setCustomValidity('Invalid');
+            } else if (destination === sourceInput.value) {
+                destinationError.textContent = 'Destination should not be the same as the source.';
+                destinationInput.setCustomValidity('Invalid');
+            } else {
+                destinationError.textContent = '';
+                destinationInput.setCustomValidity('');
+            }
+        }
+
+        function validateTime() {
+            var sourceTime = sourceTimeInput.value;
+            var destinationTime = destinationTimeInput.value;
+
+            if (sourceTime === destinationTime) {
+                destinationTimeError.textContent = 'Source time and destination time should be different.';
+                destinationTimeInput.setCustomValidity('Invalid');
+            } else {
+                destinationTimeError.textContent = '';
+                destinationTimeInput.setCustomValidity('');
+            }
+        }
+    });
+</script>
+
 		
 	<div class="clearfix"></div>
 </div>

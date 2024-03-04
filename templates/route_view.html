@@ -465,12 +465,16 @@ tr:nth-child(even) {
 <div id="mySidenav" class="sidenav">
 	<p class="logo">KSRTC <span class="menu">☰</span></p>
 	<p class="logo1"> <span class="menu1">☰</span></p>
-  <a href="{% url 'terminal_add' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>terminal add</a>
+ <a href="{% url 'terminal_add' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>terminal add</a>
+  <a href="{% url 'workshopadd' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>workshop Register</a>
+  <a href="{% url 'view_workshop' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>view workshop</a>
   <a href="{% url 'bus' %}" class="icon-a"><i class="fa fa-dashboard icons"></i>register buses</a>
   <a href="{% url 'bus_view' %}"class="icon-a"><i class="fa fa-pie-chart icons"></i> view registered bus</a>
   <a href="{% url 'route' %}"class="icon-a"><i class="fa fa-list icons"></i>bus route allocation</a>
   <a href="{% url 'route_view' %}"class="icon-a"><i class="fa fa-user icons"></i>view route allocation buses</a>
-  <a href="{% url 'staff_term' %}"class="icon-a"><i class="fa fa-user icons"></i>Staff allocation to terminal</a> {% if user.is_authenticated %}
+  <a href="{% url 'staff_term' %}"class="icon-a"><i class="fa fa-user icons"></i>Staff allocation to terminal</a>
+  <a href="{% url 'allocate_bus' %}"class="icon-a"><i class="fa fa-user icons"></i>bus allocate to terminal</a>
+  <a href="{% url 'allocate_terminal_staff' %}"class="icon-a"><i class="fa fa-user icons"></i> View Staff allocation to terminal</a> {% if user.is_authenticated %}
     <a href="logout" class="btn btn-primary ml-lg-3">Logout</a>
     {% else %}
     <a href="login.html" class="btn btn-primary ml-lg-3">Logout</a>
@@ -624,6 +628,7 @@ tr:nth-child(even) {
                 <th>Destination</th>
                 <th>Destination Time</th>
                 <th>Bus (Registration Number)</th>
+                <th>Action</th>
                                 
 
                                 <!-- Extend the Action header cell -->
@@ -640,6 +645,10 @@ tr:nth-child(even) {
                     <td>{{ route.destination }}</td>
                     <td>{{ route.destination_time }}</td>
                     <td>{{ route.bus.registration_number }}</td>
+                    <td>
+                    <a href="{% url 'edit_route' route.route_id %}">Edit</a>
+                    <a href="{% url 'delete_route' route.route_id %}">Delete</a>
+                </td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -123,6 +123,14 @@
         border: 2px solid #ccc;
         border-radius: 5px;
       }
+      .radio-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-group label {
+            margin-right: 10px;
+        }
 
     }
   </style>
@@ -214,20 +222,22 @@
             <span id="confirm_password-error" class="error-message"></span>
             <span id="password-match-error" class="error-message"></span>
           </div>
-           <div class="form-group">
-    <label for="postsTypeDropdown" style="display: inline-block; width: 100px;">Post:</label>
-    <input class="inpiut100" type="radio" id="conductorRadio" name="posts" value="conductor">
-						    <label for="conductorRadio">conducter</label>
-						    <input type="radio" id="driverRadio" name="posts" value="driver">
-						    <label for="driverRadio">driver</label>
-    <span id="post-error" class="error-message"></span>
-</div>
+          <div  class="form-group">
+         <div class="radio-group">
+        <label for="conductorRadio">Post:</label>
+        <input class="input100" type="radio" id="conductorRadio" name="posts" value="conductor">
+        <label for="conductorRadio">Conductor</label>
+        <input type="radio" id="driverRadio" name="posts" value="driver">
+        <label for="driverRadio">Driver</label>
+        <span id="post-error" class="error-message"></span>
+    </div>
           <div class="form-group">
-    <label for="terminalDropdown" style="display: inline-block; width: 100px;">Terminal:</label>
-    <select id="terminalDropdown" name="terminal" style="display: inline-block; width: 80%; border: 2px;" required>
-        <option value="thalassery">Thalassery</option>
-        <option value="kannur">Kannur</option>
-        <option value="payyannur">payyannur</option>
+    <label for="terminal" style="display: inline-block; width: 100px;">Terminal:</label>
+    <select id="terminal" name="terminal" style="display: inline-block; width: 80%; border: 2px;" required>
+        <option value="">Select Terminal</option>
+        {% for terminal in terminals %}
+            <option value="{{ terminal.terminal_id }}">{{ terminal.terminal_name }}</option>
+        {% endfor %}
     </select>
     <span id="post-error" class="error-message"></span>
 </div>

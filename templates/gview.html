@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaint Location</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>Complaint Location</h1>
+    <div id="map" style="height: 400px;"></div>
+
+    <script>
+        var complaintLocation = [{{ complaint_latitude }}, {{ complaint_longitude }}];  // Use complaint's latitude and longitude
+        
+        var map = L.map('map').setView(complaintLocation, 13);
+
+        // Add tile layer for OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add marker for complaint location
+        L.marker(complaintLocation).addTo(map)
+            .bindPopup('Complaint Location')
+            .openPopup();
+    </script>
+</body>
+</html>

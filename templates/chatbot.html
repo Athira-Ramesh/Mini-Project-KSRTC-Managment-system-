@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #chat-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chat-log {
+            height: 200px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+        #user-input {
+            width: calc(100% - 70px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #send-button {
+            width: 60px;
+            padding: 8px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Chatbot</h1>
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#send-button').click(function(){
+                sendMessage();
+            });
+
+            $('#user-input').keypress(function(event){
+                if (event.which == 13) {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                var userMessage = $('#user-input').val().trim();
+                if (userMessage) {
+                    $('#chat-log').append('<div>You: ' + userMessage + '</div>');
+                    $('#user-input').val('');
+
+                    // Send user message to server for processing
+                    $.getJSON('/chatbot/response/', {'message': userMessage}, function(response){
+                        $('#chat-log').append('<div>Chatbot: ' + response.reply + '</div>');
+                        $("#chat-log").scrollTop($("#chat-log")[0].scrollHeight);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
