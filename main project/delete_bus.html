@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Bus</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <!-- Include other necessary CSS and scripts if needed -->
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <p class="logo">KSRTC <span class="menu">☰</span></p>
+        <p class="logo1"> <span class="menu1">☰</span></p>
+        <!-- Add navigation links similar to your dashboard -->
+    </div>
+    <div id="main">
+        <div class="head">
+            <div class="col-div-6">
+                <p class="nav">Delete Bus</p>
+            </div>
+            <div class="col-div-6">
+                <!-- Add profile, search, and notification icons similar to your dashboard -->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- Create a form for confirming bus deletion -->
+        <form method="post" action="#">
+            {% csrf_token %}
+            <p>Are you sure you want to delete the following bus?</p>
+            <p><strong>Bus Registration Number:</strong> {{ bus.registration_number }}</p>
+            <p><strong>Bus Number:</strong> {{ bus.bus_number }}</p>
+            <p><strong>Status:</strong> {{ bus.status }}</p>
+            <p><strong>Terminal:</strong> {{ bus.terminal.terminal_name }}</p>
+
+            <input type="submit" value="Confirm Deletion">
+        </form>
+
+        <!-- Display error messages if needed -->
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

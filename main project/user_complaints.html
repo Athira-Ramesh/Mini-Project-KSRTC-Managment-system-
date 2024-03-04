@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Complaints</title>
+</head>
+<body>
+    <h1>Complaints by {{ user.username }}</h1>
+
+    {% if user_complaints %}
+        <ul>
+            {% for complaint in user_complaints %}
+                <li>
+                    <strong>Complaint Date:</strong> {{ complaint.complaint_date }}<br>
+                    <strong>Description:</strong> {{ complaint.complaint_description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No complaints found for this user.</p>
+    {% endif %}
+</body>
+</html>

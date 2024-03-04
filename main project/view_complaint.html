@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Complaints</title>
+</head>
+<body>
+
+<h2>Complaints</h2>
+
+{% if complaints %}
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Staff Allocation</th>
+                <th>Assigned Bus</th>
+                <th>Complaint Date</th>
+                <th>Complaint Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for complaint in complaints %}
+                <tr>
+                    <td>{{ complaint.user.username }}</td>
+                    <td>{{ complaint.staff_allocation }}</td>
+                    <td>{{ complaint.assignment.bus.registration_number }}</td>
+                    <td>{{ complaint.complaint_date }}</td>
+                    <td>{{ complaint.complaint_description }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No complaints found.</p>
+{% endif %}
+
+</body>
+</html>
