@@ -210,3 +210,26 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+
+
+from django.db import models
+
+class BusReservation(models.Model):
+    registration_number = models.CharField(max_length=50)
+    full_name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField()
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ]
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
+    selected_seats = models.CharField(max_length=200)  # Assuming seat numbers will be stored as a string
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Adding a price field
+
+    def __str__(self):
+        return f"Bus Reservation - {self.full_name}"     
