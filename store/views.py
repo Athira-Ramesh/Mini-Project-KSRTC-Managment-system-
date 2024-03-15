@@ -1331,3 +1331,34 @@ def submit_booking_form(request):
             return JsonResponse({'error': 'An error occurred while processing the form'}, status=500)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+
+from django.shortcuts import render
+from .models import Bus
+
+def bus_seat_details(request, bus_id):
+    # Retrieve bus details based on the provided bus_id
+    bus = Bus.objects.get(pk=bus_id)
+    
+    # Pass the bus object to the template
+    seat_price = SeatPrice.objects.filter(bus_id=bus_id).first()  # Retrieve the seat price for the bus
+    return render(request, 'bus_seat_details.html', {'bus': bus, 'seat_price': seat_price})
+
+from django.shortcuts import render, redirect
+from .models import Bus, SeatPrice
+
+def bus_seat_price(request):
+    if request.method == 'POST':
+        bus_id = request.POST.get('bus')
+        price = request.POST.get('price')
+        
+        # Create SeatPrice object and save it
+        SeatPrice.objects.create(bus_id=bus_id, price=price)
+        
+        # Redirect to a success page or any other desired page
+        return redirect('admindashboard')  # Replace 'success-page-url' with the actual URL
+    
+    # If the request method is GET, render the form with the list of registered buses
+    buses = Bus.objects.all()
+    return render(request, 'bus_seat_price.html', {'buses': buses})
