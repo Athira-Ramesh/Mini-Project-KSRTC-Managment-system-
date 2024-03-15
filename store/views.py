@@ -1286,3 +1286,48 @@ def reg(request):
         return redirect('login')  # Redirect to login page after successful registration
 
     return render(request, 'reg.html')
+
+
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import BusReservation
+
+@csrf_exempt
+def submit_booking_form(request):
+    if request.method == 'POST':
+        try:
+            registration_number = request.POST.get('registration_number')
+            full_name = request.POST.get('fullName')
+            age = request.POST.get('age')
+            phone_number = request.POST.get('phoneNumber')
+            email = request.POST.get('email')
+            gender = request.POST.get('gender')
+            selected_seats = request.POST.get('selectedSeats')
+            price = request.POST.get('formTotalPrice')
+
+            # Check if all required fields are present
+            if not (registration_number and full_name and age and phone_number
+                    and email and gender and selected_seats and price):
+                return JsonResponse({'error': 'All fields are required'}, status=400)
+
+            # Create BusReservation object and save it
+            reservation = BusReservation.objects.create(
+                registration_number=registration_number,
+                full_name=full_name,
+                age=age,
+                phone_number=phone_number,
+                email=email,
+                gender=gender,
+                selected_seats=selected_seats,
+                price=price
+            )
+
+            return JsonResponse({'message': 'Form submitted successfully'})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'error': 'An error occurred while processing the form'}, status=500)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
